@@ -1,0 +1,41 @@
+{
+	"info": {
+		"_postman_id": "5d668a8a-f4a9-407c-a9da-5d97c57a00c5",
+		"name": "insuranceApi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31881429"
+	},
+	"item": [
+		{
+			"name": "Calcular liquidacion",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"tipo_identificacion\": \"Ce\",\r\n        \"nro_identificacion\": \"51000003\",\r\n        \"valor_asegurado\": 5\r\n    }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/InsuranceAPI/calcularLiquidacion",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"InsuranceAPI",
+						"calcularLiquidacion"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
