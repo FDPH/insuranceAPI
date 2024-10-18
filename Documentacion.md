@@ -25,7 +25,7 @@ la imágen superior.
 7. Valor póliza = valor asegurado * % prima
 
 ## Diccionario
-Amparo = Insurance
+Amparo/poliza = Insurance
 Primas = Insurance details
 
 ## Ruta de Scripts
@@ -58,6 +58,11 @@ DB Localmente : 127.0.0.1:3306/insuranceDB
 "nombre_amparo": "Muerte accidental"
 }
 ],
-"Valor_total": 0.10060
+"Valor_total": 1456.28000,
+"Valor_total_primas": 456.28000
 }
 ]
+
+## Notas
+Se agrego un Valor_total_primas porque no era muy claro que querian que se mostrara, en un principio solo estaba mostrando la suma de todas las primas
+Siendo asi el campo Valor_total contiene la suma de las "primas" y el valor asegurado, de nuevo, no era muy claro si es asi o no

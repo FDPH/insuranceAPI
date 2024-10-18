@@ -1,4 +1,4 @@
-package com.insurance.insuranceapi.model.dtos;
+package com.insurance.insuranceapi.response;
 
 import com.insurance.insuranceapi.model.entities.InsuranceDetailRange;
 import com.insurance.insuranceapi.model.entities.InsuranceType;
@@ -36,7 +36,8 @@ public class LiquidacionResponseModel {
         response.put("nro_identificacion", nroIdentificacion);
         response.put("valor_asegurado", valorAsegurado);
         response.put("liquidación", liquidaciones);
-        response.put("Valor_total", valorTotal);
+        response.put("Valor_total_primas", valorTotal);
+        response.put("Valor_total", valorTotal.add(BigDecimal.valueOf(valorAsegurado)));
 
         return response;
     }

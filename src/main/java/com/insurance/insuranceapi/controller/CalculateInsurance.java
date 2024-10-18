@@ -14,8 +14,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import static com.insurance.insuranceapi.response.Response.errorResponseBody;
 
 @RestController
 @RequestMapping(InsuranceAPIConstans.FEATURE_NAME)
@@ -34,7 +37,25 @@ public class CalculateInsurance {
     @PostMapping("/calcularLiquidacion")
     public ResponseEntity<List<Map<String, Object>>> calcularLiquidacion(@RequestBody List<LiquidacionRequestModel> requests){
         logger.info("Calculando liquidacion");
-        return liquidacionService.procesarLiquidacion(requests);
+        List<Map<String, Object>> responseBodyList = new ArrayList<>();
+        LiquidacionRequestModel bodyRequest = requests.get(0);
+        ResponseEntity<List<Map<String, Object>>> requestCheckedBodyResponse = checkIfRequestIsCorrect(bodyRequest, responseBodyList);
+        if (requestCheckedBodyResponse != null) return requestCheckedBodyResponse;
+        return liquidacionService.procesarLiquidacion(bodyRequest);
+    }
+
+    private ResponseEntity<List<Map<String, Object>>> checkIfRequestIsCorrect(LiquidacionRequestModel solicitud, List<Map<String, Object>> responseBodyList) {
+        if (solicitud.getNroIdentificacion() == null || solicitud.getTipoIdentificacion() == null || solicitud.getValorAsegurado() == null) {
+            logger.info("Datos suministrados: No identificacion {} Tipo identificacion {} Valor asegurado {}", solicitud.getNroIdentificacion(), solicitud.getTipoIdentificacion(), solicitud.getValorAsegurado());
+            responseBodyList.add(errorResponseBody ( "Validar el request, faltan datos obligatorios"));
+            return ResponseEntity.status(500).body(responseBodyList);
+        }
+        if (solicitud.getValorAsegurado() <= 0) {
+            logger.info("Valor asegurado {}", solicitud.getValorAsegurado());
+            responseBodyList.add(errorResponseBody(" El valor asegurado no puede ser igual a 0"));
+            return ResponseEntity.badRequest().body(responseBodyList);
+        }
+        return null;
     }
 
 }

@@ -1,4 +1,4 @@
-package com.insurance.insuranceapi.model.dtos;
+package com.insurance.insuranceapi.response;
 
 public class ResponseConstants {
 
