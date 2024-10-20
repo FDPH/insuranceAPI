@@ -7,18 +7,19 @@ import com.insurance.insuranceapi.model.entities.InsuredUser;
 import com.insurance.insuranceapi.repository.InsuranceDetailRangeRepository;
 import com.insurance.insuranceapi.repository.InsuredUserRepository;
 import com.insurance.insuranceapi.response.LiquidacionResponseModel;
+import com.insurance.insuranceapi.response.ResponseConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import static com.insurance.insuranceapi.response.Response.errorResponseBody;
+import static com.insurance.insuranceapi.helper.AgeUtil.userAge;
+import static com.insurance.insuranceapi.helper.Response.errorResponseBody;
 
 @Service
 public class LiquidacionService {
@@ -54,38 +55,32 @@ public class LiquidacionService {
 
         List<InsuranceDetailRange> insuranceDetailRanges = insuranceDetailRangeRepository.findByAgeAndJoinInsuranceType(userAge);
         if (insuranceDetailRanges.isEmpty()) {
-            responseBodyList.add(errorResponseBody("No se encuentran resultados en insuranceDetailRanges"));
+            responseBodyList.add(errorResponseBody(ResponseConstants.INSURANCE_NOT_AVAILABLE_FOR_USER));
             return ResponseEntity.badRequest().body(responseBodyList);
         }
 
         List<InsuranceDetailRange> insuranceDetailRange = insuranceDetailRanges;
-
         Map<String, Object> body = builder.createBody(insuranceDetailRange, valorAsegurado, user.getDocument_number(), documentType.getDocument_name());
-
         responseBodyList.add(body);
 
         return ResponseEntity.ok().body(responseBodyList);
-
     }
 
-    private ResponseEntity<List<Map<String, Object>>> checkIfIdentificationTypeIsCorrect(DocumentTypes documentType, LiquidacionRequestModel solicitud, List<Map<String, Object>> responseBodyList) {
+    public ResponseEntity<List<Map<String, Object>>> checkIfIdentificationTypeIsCorrect(DocumentTypes documentType, LiquidacionRequestModel solicitud, List<Map<String, Object>> responseBodyList) {
         if (!documentType.getDocument_name().equalsIgnoreCase(solicitud.getTipoIdentificacion())) {
-            responseBodyList.add(errorResponseBody("El tipo de identificacion no coincide con el almacenado en base de datos"));
+            responseBodyList.add(errorResponseBody(ResponseConstants.EL_TIPO_DE_IDENTIFICACION_NO_COINCIDE_CON_EL_ALMACENADO_EN_BASE_DE_DATOS));
             return ResponseEntity.badRequest().body(responseBodyList);
         }
         return null;
     }
 
-    private ResponseEntity<List<Map<String, Object>>> checkIfInsuredUserExist(Optional<InsuredUser> insuredUser, List<Map<String, Object>> responseBodyList) {
+    public ResponseEntity<List<Map<String, Object>>> checkIfInsuredUserExist(Optional<InsuredUser> insuredUser, List<Map<String, Object>> responseBodyList) {
         if (!insuredUser.isPresent()) {
-            responseBodyList.add(errorResponseBody("No se encuentran resultados en insuredUser"));
+            responseBodyList.add(errorResponseBody(ResponseConstants.NO_SE_ENCUENTRAN_RESULTADOS_EN_INSURED_USER));
             return ResponseEntity.badRequest().body(responseBodyList);
         }
         return null;
     }
 
-    private int userAge(LocalDate dateOfBirth) {
-        LocalDate today = LocalDate.now();
-        return today.getYear() - dateOfBirth.getYear();
-    }
+
 }

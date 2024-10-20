@@ -24,20 +24,20 @@ public class LiquidacionResponseModel {
             valorTotal = valorTotal.add(valorPoliza);
 
             Map<String, Object> liquidacion = new HashMap<>();
-            liquidacion.put("código_amparo", insuranceType.getId_insurance_type());
-            liquidacion.put("nombre_amparo", insuranceType.getInsurance_name());
-            liquidacion.put("valor_prima", valorPoliza);
+            liquidacion.put(ResponseConstants.CODIGO_AMPARO, insuranceType.getId_insurance_type());
+            liquidacion.put(ResponseConstants.NOMBRE_AMPARO, insuranceType.getInsurance_name());
+            liquidacion.put(ResponseConstants.VALOR_PRIMA, valorPoliza);
 
             liquidaciones.add(liquidacion);
         }
 
         Map<String, Object> response = new HashMap<>();
-        response.put("tipo_identificacion", tipoIdentificacion);
-        response.put("nro_identificacion", nroIdentificacion);
-        response.put("valor_asegurado", valorAsegurado);
-        response.put("liquidación", liquidaciones);
-        response.put("Valor_total_primas", valorTotal);
-        response.put("Valor_total", valorTotal.add(BigDecimal.valueOf(valorAsegurado)));
+        response.put(ResponseConstants.TIPO_IDENTIFICACION, tipoIdentificacion);
+        response.put(ResponseConstants.NRO_IDENTIFICACION, nroIdentificacion);
+        response.put(ResponseConstants.VALOR_ASEGURADO, valorAsegurado);
+        response.put(ResponseConstants.LIQUIDACION, liquidaciones);
+        response.put(ResponseConstants.VALOR_TOTAL_PRIMAS, valorTotal);
+        response.put(ResponseConstants.VALOR_TOTAL, valorTotal.add(BigDecimal.valueOf(valorAsegurado)));
 
         return response;
     }

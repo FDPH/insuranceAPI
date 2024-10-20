@@ -3,6 +3,13 @@ package com.insurance.insuranceapi.model.dtos;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class LiquidacionRequestModel {
+
+    public LiquidacionRequestModel(String tipoIdentificacion, String nroIdentificacion, Integer valorAsegurado) {
+        this.tipoIdentificacion = tipoIdentificacion;
+        this.nroIdentificacion = nroIdentificacion;
+        this.valorAsegurado = valorAsegurado;
+    }
+
     @JsonProperty("tipo_identificacion")
     private String tipoIdentificacion;
 

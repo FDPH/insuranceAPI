@@ -1,4 +1,6 @@
-package com.insurance.insuranceapi.response;
+package com.insurance.insuranceapi.helper;
+
+import com.insurance.insuranceapi.response.ResponseConstants;
 
 import java.util.HashMap;
 import java.util.Map;

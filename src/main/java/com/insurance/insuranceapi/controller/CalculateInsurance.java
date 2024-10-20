@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static com.insurance.insuranceapi.response.Response.errorResponseBody;
+import static com.insurance.insuranceapi.helper.Response.errorResponseBody;
 
 @RestController
 @RequestMapping(InsuranceAPIConstans.FEATURE_NAME)
