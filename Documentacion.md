@@ -63,6 +63,11 @@ DB Localmente : 127.0.0.1:3306/insuranceDB
 }
 ]
 
+## Docker
+Se creo un archivo Dockerfile y un archivo docker-compose.yml para trabajar los dos proyectos en contenedores
+ejecutar con el comando "docker-compose up --build -d"
+El archivo compose esta creando los usuarios y variables de entorno por lo que no seria necesario modificar alguna propiedad
+
 ## Notas
 Se agrego un Valor_total_primas porque no era muy claro que querian que se mostrara, en un principio solo estaba mostrando la suma de todas las primas
 Siendo asi el campo Valor_total contiene la suma de las "primas" y el valor asegurado, de nuevo, no era muy claro si es asi o no

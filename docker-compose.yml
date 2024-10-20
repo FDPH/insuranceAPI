@@ -1,0 +1,36 @@
+version: "3.9"
+services:
+    db:
+        image: mysql:8
+        container_name: mysql-container
+        ports:
+            - "3307:3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+        volumes:
+            - db-data:/var/lib/mysql
+            - ./mysql_data/insuranceDB.sql:/docker-entrypoint-initdb.d/init.sql
+        networks:
+            - red_insurance
+    app:
+        image: openjdk:17
+        container_name: java-app-container
+        build:
+            context: .
+            dockerfile: Dockerfile
+        ports: 
+            - "8080:8080"
+        environment:
+            SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/insuranceDB
+            SPRING_DATASOURCE_USERNAME: root
+            SPRING_DATASOURCE_PASSWORD: root
+        depends_on:
+            - db
+        networks:
+            - red_insurance
+        
+
+volumes:
+    db-data:
+networks:
+    red_insurance:
