@@ -34,6 +34,7 @@ mysql_data/insuranceDB.sql
 ## Urls
 Api localmente : 127.0.0.1:8080/InsuranceAPI/calcularLiquidacion
 DB Localmente : 127.0.0.1:3306/insuranceDB
+Swagger: 127.0.0.1:8080/swagger-ui/index.htm
 
 # Json  
 ## Request  
